@@ -6,7 +6,11 @@
 
 Show a `.obj` file with texture in the looking glass.
 
+
+
 ## 用法/Usage
+
+notice: opencv_world341 is required!
 
 1. 将使用的texture`.png`文件和`.obj`放在`./program/test`文件夹中，并重命名为`0.png`和`0.obj`
 2. 运行`./program/run.bat`启动程序
