@@ -1,0 +1,121 @@
+varying vec2 vTexCoord;
+varying vec3 vetxNorm;
+uniform sampler2D MaskText;
+uniform sampler2D ObjText;
+uniform sampler2D AllViewsText;
+
+uniform float img_h;
+uniform float img_w;
+uniform bool disp_f;
+
+uniform float view_h;
+uniform float view_w;
+uniform float views_cols;
+uniform float views_rows;
+
+void main()
+{          
+	if (disp_f) {
+		float x_t = float(gl_FragCoord.x) / (img_w);
+		float y_t = float(gl_FragCoord.y) / (img_h);
+		
+		
+		vec2 Proj_Coord = vec2(x_t, y_t);
+		//gl_FragColor = texture2D(AllViewsText, Proj_Coord).rgba;;
+		vec4 s_color = vec4(0.0, 0.0, 0.0, 1.0);
+		vec4 MaskText_val = texture2D(MaskText, Proj_Coord).rgba;
+
+		if (MaskText_val.r > 0.0) {
+			//int mask_val = round(MaskText_val.r * 255.0) - 1;
+			float mask_val = floor(MaskText_val.r * 255.0 + 0.5) - 1.0;
+			float col_idx = mod(mask_val, views_cols);
+			float row_idx = floor( mask_val / views_cols);
+
+			float av_x_t = (col_idx*view_w + x_t*view_w) / (view_w*views_cols);
+			float av_y_t = (row_idx*view_h + y_t*view_h) / (view_h*views_rows);
+			vec2 P_Coord = vec2(av_x_t, av_y_t);
+			vec4 V_color = texture2D(AllViewsText, P_Coord).rgba;
+			s_color.r = V_color.r;
+		}	
+		if (MaskText_val.g > 0.0) {
+			float mask_val = floor(MaskText_val.g * 255.0 + 0.5) - 1.0;
+			float col_idx = mod(mask_val, views_cols);
+			float row_idx = floor(mask_val / views_cols);
+
+			float av_x_t = (col_idx*view_w + x_t*view_w) / (view_w*views_cols);
+			float av_y_t = (row_idx*view_h + y_t*view_h) / (view_h*views_rows);
+
+			vec2 P_Coord = vec2(av_x_t, av_y_t);
+			vec4 V_color = texture2D(AllViewsText, P_Coord).rgba;
+			s_color.g = V_color.g;
+		}
+		if (MaskText_val.b > 0.0) {
+			float mask_val = floor(MaskText_val.b * 255.0 + 0.5) - 1.0;
+			float col_idx = mod(mask_val, views_cols);
+			float row_idx = floor(mask_val / views_cols);
+
+			float av_x_t = (col_idx*view_w + x_t*view_w) / (view_w*views_cols);
+			float av_y_t = (row_idx*view_h + y_t*view_h) / (view_h*views_rows);
+
+			vec2 P_Coord = vec2(av_x_t, av_y_t);
+			vec4 V_color = texture2D(AllViewsText, P_Coord).rgba;
+			s_color.b = V_color.b;
+		}
+		gl_FragColor = s_color;
+
+	}
+	else
+	{
+		gl_FragColor = texture2D(ObjText, vTexCoord).rgba;
+	}
+
+
+
+	/*float x_t = float(gl_FragCoord.x) / (img_w);
+	float y_t = float(gl_FragCoord.y) / (img_h);
+	vec2 Proj_Coord = vec2(x_t, y_t);
+
+	vec4 Text_color = texture2D(ObjText, vTexCoord).rgba;
+	vec4 s_color = vec4(0, 0, 0, 0);
+	vec4 MaskText_val = texture2D(MaskText, Proj_Coord).rgba;
+	if (round(MaskText_val.r * 255.0) == mask_val)
+		s_color.r = Text_color.r;
+	if (round(MaskText_val.g * 255.0) == mask_val)
+		s_color.g = Text_color.g;
+	if (round(MaskText_val.b * 255.0) == mask_val)
+		s_color.b = Text_color.b;
+		*/
+		//gl_FragColor = s_color;
+		//gl_FragColor = vec4(1,0,0,1);
+		
+
+}
+
+
+
+
+/*	if (MaskText_val.g > 0) {
+int mask_val = round(MaskText_val.g * 255.0) - 1;
+int col_idx = mod((mask_val - 1) , int(views_cols));
+int row_idx = (int)floor(float(mask_val - 1) / float(views_cols));
+
+float av_x_t = (float(col_idx)*view_w + x_t*view_w) / (view_w*views_cols);
+float av_y_t = (float(row_idx)*view_h + y_t*view_h) / (view_h*views_rows);
+
+vec2 P_Coord = vec2(av_x_t, av_y_t);
+vec4 V_color = texture2D(AllViewsText, P_Coord).rgba;
+s_color.g = V_color.g;
+}
+if (MaskText_val.b > 0) {
+int mask_val = round(MaskText_val.b * 255.0) - 1;
+int col_idx = mod((mask_val - 1), int(views_cols));
+int row_idx = (int)floor(float(mask_val - 1) / float(views_cols));
+
+float av_x_t = (float(col_idx)*view_w + x_t*view_w) / (view_w*views_cols);
+float av_y_t = (float(row_idx)*view_h + y_t*view_h) / (view_h*views_rows);
+
+vec2 P_Coord = vec2(av_x_t, av_y_t);
+vec4 V_color = texture2D(AllViewsText, P_Coord).rgba;
+s_color.b = V_color.b;
+}
+gl_FragColor = s_color;*/

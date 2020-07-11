@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<CamNum>75</CamNum>
+<ViewTextureRows>9</ViewTextureRows>
+<ViewTextureCols>5</ViewTextureCols>
+<CamFx>2260.1</CamFx>
+<CamFy>2260.1</CamFy>
+<CamCx>409.5</CamCx>
+<CamCy>277.5</CamCy>
+<ViewWidth>819</ViewWidth>
+<ViewHeight>455</ViewHeight>
+<RenderImgWidth>2560</RenderImgWidth>
+<RenderImgHeight>1600</RenderImgHeight>
+<DepthNear>1</DepthNear>
+<DepthFar>100</DepthFar>
+<ObjCenter>0 0 0</ObjCenter>
+<CircleNormal>0 1 0</CircleNormal>
+<CircleRadius>1.2</CircleRadius>
+<InitialAngle>240</InitialAngle>
+<SamplingAngle>1.2</SamplingAngle>
+<MaskFile>./mask.png</MaskFile>
+<TextureFileFormat>./test/%d.png</TextureFileFormat>
+<ObjFileFormat>./test/%d.obj</ObjFileFormat>
+<ObjStart>0</ObjStart>
+<ObjNumber>1</ObjNumber>
+<ObjFrameRate>30</ObjFrameRate>
+<SaveFlag>0</SaveFlag>
+</opencv_storage>

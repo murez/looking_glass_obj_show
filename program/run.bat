@@ -1,0 +1,1 @@
+OBJ_LG.exe config.xml 0

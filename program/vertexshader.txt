@@ -1,0 +1,16 @@
+attribute vec2 vCoord;
+attribute vec3 vgl_Normal;
+varying vec3  vetxNorm;
+varying vec2 vTexCoord;
+
+//varying vec3 mVertex;
+
+void main(void)
+{  
+
+   vTexCoord = vCoord;
+   vetxNorm = vgl_Normal;
+  // mVertex = vec3(gl_Vertex.y,gl_Vertex.z,gl_Vertex.x);
+   gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+
+}
